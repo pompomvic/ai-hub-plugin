@@ -48,6 +48,7 @@ class SyncService
         $baseUrl = $this->settings->getBaseUrl();
         $siteId = $this->settings->getSiteId();
         $token = $this->settings->getAutomationToken();
+        $tenantKey = $this->settings->getTenantApiKey();
 
         if (!$baseUrl || !$siteId || !$token) {
             throw new RuntimeException(
@@ -56,7 +57,7 @@ class SyncService
         }
 
         try {
-            return $this->apiClient->fetchDashboardsManifest($baseUrl, $siteId, $token);
+            return $this->apiClient->fetchDashboardsManifest($baseUrl, $siteId, $token, $tenantKey);
         } catch (GuzzleException $exception) {
             throw new RuntimeException($exception->getMessage(), (int) $exception->getCode(), $exception);
         }
@@ -72,6 +73,7 @@ class SyncService
         $baseUrl = $this->settings->getBaseUrl();
         $siteId = $this->settings->getSiteId();
         $token = $this->settings->getAutomationToken();
+        $tenantKey = $this->settings->getTenantApiKey();
 
         if (!$baseUrl || !$siteId || !$token) {
             throw new RuntimeException(
@@ -80,7 +82,7 @@ class SyncService
         }
 
         try {
-            return $this->apiClient->fetchDashboardDetail($baseUrl, $siteId, $token, $slug);
+            return $this->apiClient->fetchDashboardDetail($baseUrl, $siteId, $token, $slug, $tenantKey);
         } catch (GuzzleException $exception) {
             throw new RuntimeException($exception->getMessage(), (int) $exception->getCode(), $exception);
         }
@@ -96,6 +98,7 @@ class SyncService
         $baseUrl = $this->settings->getBaseUrl();
         $siteId = $this->settings->getSiteId();
         $token = $this->settings->getAutomationToken();
+        $tenantKey = $this->settings->getTenantApiKey();
 
         if (!$baseUrl || !$siteId || !$token) {
             return new WP_Error(
@@ -112,7 +115,8 @@ class SyncService
                 [
                     'statuses' => ['pending'],
                     'limit' => 25,
-                ]
+                ],
+                $tenantKey
             );
         } catch (GuzzleException $exception) {
             $this->settings->recordError($exception->getMessage());
@@ -143,7 +147,7 @@ class SyncService
         }
 
         try {
-            $this->apiClient->applySeoUpdates($baseUrl, $siteId, $token, $acknowledgements);
+            $this->apiClient->applySeoUpdates($baseUrl, $siteId, $token, $acknowledgements, $tenantKey);
         } catch (GuzzleException $exception) {
             $this->settings->recordError($exception->getMessage());
 

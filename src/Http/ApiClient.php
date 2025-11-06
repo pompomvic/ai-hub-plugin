@@ -35,7 +35,8 @@ class ApiClient
         string $baseUrl,
         string $siteId,
         string $token,
-        array $filters = []
+        array $filters = [],
+        ?string $tenantKey = null
     ): array {
         $payload = [
             'site_id' => $siteId,
@@ -64,14 +65,19 @@ class ApiClient
             $payload['statuses'] = ['pending'];
         }
 
+        $headers = [
+            'Accept' => 'application/json',
+        ];
+        if ($tenantKey) {
+            $headers['X-AI-Hub-Tenant-Key'] = $tenantKey;
+        }
+
         $response = $this->httpClient->request(
             'POST',
             rtrim($baseUrl, '/') . '/wordpress/seo/pull',
             [
                 'json' => $payload,
-                'headers' => [
-                    'Accept' => 'application/json',
-                ],
+                'headers' => $headers,
                 'timeout' => 15,
             ]
         );
@@ -96,8 +102,16 @@ class ApiClient
         string $baseUrl,
         string $siteId,
         string $token,
-        array $updates
+        array $updates,
+        ?string $tenantKey = null
     ): array {
+        $headers = [
+            'Accept' => 'application/json',
+        ];
+        if ($tenantKey) {
+            $headers['X-AI-Hub-Tenant-Key'] = $tenantKey;
+        }
+
         $response = $this->httpClient->request(
             'POST',
             rtrim($baseUrl, '/') . '/wordpress/seo/apply',
@@ -107,9 +121,7 @@ class ApiClient
                     'token' => $token,
                     'updates' => $updates,
                 ],
-                'headers' => [
-                    'Accept' => 'application/json',
-                ],
+                'headers' => $headers,
                 'timeout' => 15,
             ]
         );
@@ -130,8 +142,15 @@ class ApiClient
      *
      * @throws GuzzleException
      */
-    public function fetchDashboardsManifest(string $baseUrl, string $siteId, string $token): array
+    public function fetchDashboardsManifest(string $baseUrl, string $siteId, string $token, ?string $tenantKey = null): array
     {
+        $headers = [
+            'Accept' => 'application/json',
+        ];
+        if ($tenantKey) {
+            $headers['X-AI-Hub-Tenant-Key'] = $tenantKey;
+        }
+
         $response = $this->httpClient->request(
             'POST',
             rtrim($baseUrl, '/') . '/wordpress/dashboards/manifest',
@@ -140,9 +159,7 @@ class ApiClient
                     'site_id' => $siteId,
                     'token' => $token,
                 ],
-                'headers' => [
-                    'Accept' => 'application/json',
-                ],
+                'headers' => $headers,
                 'timeout' => 15,
             ]
         );
@@ -165,8 +182,16 @@ class ApiClient
         string $baseUrl,
         string $siteId,
         string $token,
-        string $slug
+        string $slug,
+        ?string $tenantKey = null
     ): array {
+        $headers = [
+            'Accept' => 'application/json',
+        ];
+        if ($tenantKey) {
+            $headers['X-AI-Hub-Tenant-Key'] = $tenantKey;
+        }
+
         $response = $this->httpClient->request(
             'POST',
             rtrim($baseUrl, '/') . '/wordpress/dashboards/details',
@@ -176,9 +201,7 @@ class ApiClient
                     'token' => $token,
                     'slug' => $slug,
                 ],
-                'headers' => [
-                    'Accept' => 'application/json',
-                ],
+                'headers' => $headers,
                 'timeout' => 15,
             ]
         );
