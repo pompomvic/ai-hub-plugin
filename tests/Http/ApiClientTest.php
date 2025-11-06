@@ -72,6 +72,7 @@ class ApiClientTest extends TestCase
                     $this->assertSame('token', $options['json']['token']);
                     $this->assertSame(['pending'], $options['json']['statuses']);
                     $this->assertSame(25, $options['json']['limit']);
+                    $this->assertSame('tenant-api-key', $options['headers']['X-AI-Hub-Tenant-Key']);
                     return true;
                 })
             )
@@ -95,7 +96,8 @@ class ApiClientTest extends TestCase
             [
                 'statuses' => ['pending'],
                 'limit' => 25,
-            ]
+            ],
+            'tenant-api-key'
         );
 
         $this->assertCount(1, $updates);
@@ -115,6 +117,7 @@ class ApiClientTest extends TestCase
                     $this->assertSame('token', $options['json']['token']);
                     $this->assertSame('draft-1', $options['json']['updates'][0]['id']);
                     $this->assertSame('applied', $options['json']['updates'][0]['status']);
+                    $this->assertSame('tenant-api-key', $options['headers']['X-AI-Hub-Tenant-Key']);
                     return true;
                 })
             )
@@ -137,7 +140,8 @@ class ApiClientTest extends TestCase
                     'status' => 'applied',
                     'note' => '',
                 ],
-            ]
+            ],
+            'tenant-api-key'
         );
 
         $this->assertIsArray($result);

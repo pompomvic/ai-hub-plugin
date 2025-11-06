@@ -40,6 +40,18 @@ if (!defined('ABSPATH')) {
                 <th scope="row"><?php esc_html_e('Last Error', 'ai-hub-seo'); ?></th>
                 <td><?php echo isset($settings['last_error']) ? esc_html($settings['last_error']) : '—'; ?></td>
             </tr>
+            <tr>
+                <th scope="row"><?php esc_html_e('Tenant API Key', 'ai-hub-seo'); ?></th>
+                <td>
+                    <?php
+                    if (!empty($settings['tenant_api_key'])) {
+                        echo '<span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . esc_html__('Configured', 'ai-hub-seo');
+                    } else {
+                        echo '<span class="dashicons dashicons-warning" aria-hidden="true"></span> ' . esc_html__('Not configured', 'ai-hub-seo');
+                    }
+                    ?>
+                </td>
+            </tr>
         </tbody>
     </table>
 

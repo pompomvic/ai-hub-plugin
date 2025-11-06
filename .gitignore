@@ -3,6 +3,8 @@
 /dist/
 /vendor/
 /node_modules/
+wp-content/
+.phpunit.result.cache
 
 # Composer
 /composer.lock

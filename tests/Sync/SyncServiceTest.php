@@ -19,6 +19,7 @@ class SyncServiceTest extends TestCase
         $settings->method('getBaseUrl')->willReturn($values['baseUrl'] ?? null);
         $settings->method('getSiteId')->willReturn($values['siteId'] ?? null);
         $settings->method('getAutomationToken')->willReturn($values['token'] ?? null);
+        $settings->method('getTenantApiKey')->willReturn($values['tenantKey'] ?? null);
         return $settings;
     }
 
@@ -28,12 +29,13 @@ class SyncServiceTest extends TestCase
             'baseUrl' => 'https://hub.example.com/api',
             'siteId' => 'site-id',
             'token' => 'secret',
+            'tenantKey' => 'tenant-api-key',
         ]);
 
         $client = $this->createMock(ApiClient::class);
         $client->expects($this->once())
             ->method('fetchDashboardsManifest')
-            ->with('https://hub.example.com/api', 'site-id', 'secret')
+            ->with('https://hub.example.com/api', 'site-id', 'secret', 'tenant-api-key')
             ->willReturn([
                 ['slug' => 'alpha'],
             ]);
@@ -51,12 +53,13 @@ class SyncServiceTest extends TestCase
             'baseUrl' => 'https://hub.example.com/api',
             'siteId' => 'site-id',
             'token' => 'secret',
+            'tenantKey' => 'tenant-api-key',
         ]);
 
         $client = $this->createMock(ApiClient::class);
         $client->expects($this->once())
             ->method('fetchDashboardDetail')
-            ->with('https://hub.example.com/api', 'site-id', 'secret', 'alpha')
+            ->with('https://hub.example.com/api', 'site-id', 'secret', 'alpha', 'tenant-api-key')
             ->willReturn([
                 'slug' => 'alpha',
                 'label' => 'Alpha',
@@ -88,6 +91,7 @@ class SyncServiceTest extends TestCase
             'baseUrl' => 'https://hub.example.com/api',
             'siteId' => 'site-id',
             'token' => 'secret',
+            'tenantKey' => 'tenant-api-key',
         ]);
 
         $client = $this->createMock(ApiClient::class);
@@ -100,7 +104,8 @@ class SyncServiceTest extends TestCase
                 [
                     'statuses' => ['pending'],
                     'limit' => 25,
-                ]
+                ],
+                'tenant-api-key'
             )
             ->willReturn([]);
 
@@ -119,6 +124,7 @@ class SyncServiceTest extends TestCase
             'baseUrl' => 'https://hub.example.com/api',
             'siteId' => 'site-id',
             'token' => 'secret',
+            'tenantKey' => 'tenant-api-key',
         ]);
 
         $client = $this->createMock(ApiClient::class);
@@ -131,7 +137,8 @@ class SyncServiceTest extends TestCase
                 [
                     'statuses' => ['pending'],
                     'limit' => 25,
-                ]
+                ],
+                'tenant-api-key'
             )
             ->willReturn([
                 [
@@ -153,7 +160,8 @@ class SyncServiceTest extends TestCase
                         'status' => 'applied',
                         'note' => '',
                     ],
-                ]
+                ],
+                'tenant-api-key'
             )
             ->willReturn([]);
 
