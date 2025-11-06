@@ -147,7 +147,8 @@ class SettingsPage
         $settings = $this->settings->all();
         $value = $settings[$key] ?? '';
         printf(
-            '<input type="%3$s" class="regular-text" name="ai_hub_wp_settings[%1$s]" value="%2$s" placeholder="%4$s" autocomplete="off" />',
+            '<input type="%3$s" class="regular-text" name="ai_hub_wp_settings[%1$s]" value="%2$s" ' .
+            'placeholder="%4$s" autocomplete="off" />',
             esc_attr($key),
             esc_attr((string) $value),
             esc_attr($type),

@@ -25,8 +25,7 @@ class SyncService
         Settings $settings,
         ?ClientInterface $httpClient = null,
         ?ApiClient $apiClient = null
-    )
-    {
+    ) {
         $this->settings = $settings;
 
         $this->apiClient = $apiClient ?? new ApiClient(

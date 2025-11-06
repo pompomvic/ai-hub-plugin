@@ -58,7 +58,8 @@ export default function App({ data }: { data: BootPayload }): JSX.Element {
       const payload: RestManifestResponse = await response.json();
       setDashboards(Array.isArray(payload.dashboards) ? payload.dashboards : []);
     } catch (requestError) {
-      const message = requestError instanceof Error ? requestError.message : 'Unable to load dashboards.';
+      const message =
+        requestError instanceof Error ? requestError.message : 'Unable to load dashboards.';
       setError(message);
       setDashboards([]);
     } finally {
@@ -86,7 +87,10 @@ export default function App({ data }: { data: BootPayload }): JSX.Element {
 
       <section className="card" style={{ marginTop: '1.5rem' }}>
         <h2>{window.wp?.i18n?.__?.('Dashboard Manifest', 'ai-hub-seo') ?? 'Dashboard Manifest'}</h2>
-        <p>Fetches the dashboard manifest exposed by the AI Hub tenant using the configured automation token.</p>
+        <p>
+          Fetches the dashboard manifest exposed by the AI Hub tenant using the configured
+          automation token.
+        </p>
         <button
           type="button"
           className="button button-primary"

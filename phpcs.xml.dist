@@ -1,10 +1,31 @@
 <?xml version="1.0"?>
 <ruleset name="AI Hub WordPress Plugin">
-  <description>CodeSniffer rules for the AI Hub WordPress plugin.</description>
+  <description>Code style rules aligned with PSR-12 conventions for the AI Hub WordPress plugin.</description>
+
+  <file>ai-hub-seo.php</file>
   <file>src</file>
+  <file>tests</file>
+
   <arg name="basepath" value="."/>
   <arg value="p"/>
-  <rule ref="WordPress-Core"/>
-  <rule ref="WordPress-Docs"/>
-  <rule ref="WordPress-Extra"/>
+
+  <rule ref="PSR12">
+    <exclude name="PSR1.Files.SideEffects"/>
+    <exclude name="PSR12.Files.FileHeader.SpacingAfterBlock"/>
+  </rule>
+
+  <rule ref="Generic.Files.LineLength">
+    <properties>
+      <property name="ignoreComments" value="true"/>
+    </properties>
+  </rule>
+
+  <rule ref="Generic.PHP.ForbiddenFunctions">
+    <properties>
+      <property name="forbiddenFunctions" type="array">
+        <element key="var_dump" value="error_log"/>
+        <element key="print_r" value="error_log"/>
+      </property>
+    </properties>
+  </rule>
 </ruleset>

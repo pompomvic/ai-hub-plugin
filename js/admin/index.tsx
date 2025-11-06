@@ -21,6 +21,6 @@ if (container && payload) {
   root.render(
     <StrictMode>
       <App data={payload} />
-    </StrictMode>
+    </StrictMode>,
   );
 }

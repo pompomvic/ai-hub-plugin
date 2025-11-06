@@ -45,9 +45,11 @@ if (!defined('ABSPATH')) {
                 <td>
                     <?php
                     if (!empty($settings['tenant_api_key'])) {
-                        echo '<span class="dashicons dashicons-yes" aria-hidden="true"></span> ' . esc_html__('Configured', 'ai-hub-seo');
+                        echo '<span class="dashicons dashicons-yes" aria-hidden="true"></span> ';
+                        echo esc_html__('Configured', 'ai-hub-seo');
                     } else {
-                        echo '<span class="dashicons dashicons-warning" aria-hidden="true"></span> ' . esc_html__('Not configured', 'ai-hub-seo');
+                        echo '<span class="dashicons dashicons-warning" aria-hidden="true"></span> ';
+                        echo esc_html__('Not configured', 'ai-hub-seo');
                     }
                     ?>
                 </td>

@@ -142,8 +142,12 @@ class ApiClient
      *
      * @throws GuzzleException
      */
-    public function fetchDashboardsManifest(string $baseUrl, string $siteId, string $token, ?string $tenantKey = null): array
-    {
+    public function fetchDashboardsManifest(
+        string $baseUrl,
+        string $siteId,
+        string $token,
+        ?string $tenantKey = null
+    ): array {
         $headers = [
             'Accept' => 'application/json',
         ];
