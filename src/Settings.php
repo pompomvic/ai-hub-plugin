@@ -18,6 +18,7 @@ class Settings
      *     base_url?: string,
      *     site_id?: string,
      *     automation_token?: string,
+     *     tenant_api_key?: string,
      *     sync_interval?: int,
      *     last_sync?: string,
      *     last_error?: string
@@ -61,6 +62,13 @@ class Settings
         $settings = $this->all();
 
         return isset($settings['automation_token']) ? (string) $settings['automation_token'] : null;
+    }
+
+    public function getTenantApiKey(): ?string
+    {
+        $settings = $this->all();
+
+        return isset($settings['tenant_api_key']) ? (string) $settings['tenant_api_key'] : null;
     }
 
     public function getSyncInterval(): int

@@ -75,9 +75,25 @@ class SettingsPage
         );
 
         add_settings_field(
+            'ai_hub_tenant_api_key',
+            __('Tenant API Key', 'ai-hub-seo'),
+            fn () => $this->renderInput(
+                'tenant_api_key',
+                __('Paste the tenant automation key from AI Hub', 'ai-hub-seo'),
+                'password'
+            ),
+            'ai-hub-settings',
+            'ai_hub_general'
+        );
+
+        add_settings_field(
             'ai_hub_token',
             __('Automation Token', 'ai-hub-seo'),
-            fn () => $this->renderInput('automation_token', __('Paste the one-time token from AI Hub', 'ai-hub-seo')),
+            fn () => $this->renderInput(
+                'automation_token',
+                __('Paste the one-time token from AI Hub', 'ai-hub-seo'),
+                'password'
+            ),
             'ai-hub-settings',
             'ai_hub_general'
         );
@@ -131,7 +147,7 @@ class SettingsPage
         $settings = $this->settings->all();
         $value = $settings[$key] ?? '';
         printf(
-            '<input type="%3$s" class="regular-text" name="ai_hub_wp_settings[%1$s]" value="%2$s" placeholder="%4$s" />',
+            '<input type="%3$s" class="regular-text" name="ai_hub_wp_settings[%1$s]" value="%2$s" placeholder="%4$s" autocomplete="off" />',
             esc_attr($key),
             esc_attr((string) $value),
             esc_attr($type),
@@ -154,6 +170,10 @@ class SettingsPage
 
         if (isset($input['site_id'])) {
             $sanitised['site_id'] = sanitize_text_field((string) $input['site_id']);
+        }
+
+        if (isset($input['tenant_api_key'])) {
+            $sanitised['tenant_api_key'] = sanitize_text_field((string) $input['tenant_api_key']);
         }
 
         if (isset($input['automation_token'])) {
