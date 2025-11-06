@@ -1,0 +1,15 @@
+# Build artifacts
+/build/
+/dist/
+/vendor/
+/node_modules/
+
+# Composer
+/composer.lock
+
+# Logs and dumps
+*.log
+*.tmp
+
+# OS cruft
+.DS_Store

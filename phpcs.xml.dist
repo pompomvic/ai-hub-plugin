@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<ruleset name="AI Hub WordPress Plugin">
+  <description>CodeSniffer rules for the AI Hub WordPress plugin.</description>
+  <file>src</file>
+  <arg name="basepath" value="."/>
+  <arg value="p"/>
+  <rule ref="WordPress-Core"/>
+  <rule ref="WordPress-Docs"/>
+  <rule ref="WordPress-Extra"/>
+</ruleset>
