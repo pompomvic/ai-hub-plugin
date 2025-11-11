@@ -3,7 +3,7 @@
  * Plugin Name: AI Hub SEO Sync
  * Description: Synchronise AI Hub SEO drafts with this WordPress site on behalf of tenants.
  * Author: AI Hub
- * Version: 0.1.1
+ * Version: 0.2.1
  * Requires at least: 6.2
  * Requires PHP: 8.1
  * Text Domain: ai-hub-seo
@@ -19,6 +19,15 @@ if (!defined('ABSPATH')) {
 
 define('AI_HUB_PLUGIN_FILE', __FILE__);
 define('AI_HUB_PLUGIN_DIR', plugin_dir_path(__FILE__));
+
+if (!defined('AI_HUB_PLUGIN_VERSION')) {
+    if (function_exists('get_file_data')) {
+        $metadata = get_file_data(__FILE__, ['Version' => 'Version'], 'plugin');
+        define('AI_HUB_PLUGIN_VERSION', isset($metadata['Version']) ? (string) $metadata['Version'] : 'dev');
+    } else {
+        define('AI_HUB_PLUGIN_VERSION', 'dev');
+    }
+}
 
 $autoloadPath = __DIR__ . '/vendor/autoload.php';
 if (file_exists($autoloadPath)) {

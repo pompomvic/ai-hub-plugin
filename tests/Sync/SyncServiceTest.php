@@ -109,6 +109,9 @@ class SyncServiceTest extends TestCase
             )
             ->willReturn([]);
 
+        $client->expects($this->atLeastOnce())
+            ->method('sendTelemetryEvents');
+
         $client->expects($this->never())->method('applySeoUpdates');
 
         $service = new SyncService($settings, null, $client);
@@ -147,6 +150,9 @@ class SyncServiceTest extends TestCase
                     'body_html' => '<p>Test</p>',
                 ],
             ]);
+
+        $client->expects($this->atLeastOnce())
+            ->method('sendTelemetryEvents');
 
         $client->expects($this->once())
             ->method('applySeoUpdates')

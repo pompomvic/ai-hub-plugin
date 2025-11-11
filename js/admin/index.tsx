@@ -1,10 +1,10 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App, { BootPayload } from './App';
+import App from './App';
 
 declare global {
   interface Window {
-    AIHubWordPress?: BootPayload;
+    AIHubWordPress?: Parameters<typeof App>[0]['data'];
     wp?: {
       i18n?: {
         __?: (text: string, domain?: string) => string;
@@ -13,7 +13,7 @@ declare global {
   }
 }
 
-const container = document.getElementById('ai-hub-wordpress-admin');
+const container = document.getElementById('ai-hub-admin-app');
 const payload = window.AIHubWordPress;
 
 if (container && payload) {

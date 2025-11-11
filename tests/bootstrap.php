@@ -31,6 +31,38 @@ if (!function_exists('__')) {
     }
 }
 
+if (!function_exists('get_file_data')) {
+    function get_file_data(string $file, array $default_headers, string $context = ''): array
+    {
+        return ['Version' => 'test'];
+    }
+}
+
+if (!function_exists('wp_salt')) {
+    function wp_salt(string $scheme = 'auth'): string
+    {
+        return 'test-' . $scheme . '-salt';
+    }
+}
+
+if (!function_exists('get_bloginfo')) {
+    function get_bloginfo(string $show = '', string $filter = 'raw')
+    {
+        if ($show === 'version') {
+            return '6.x-test';
+        }
+
+        return 'ai-hub-test';
+    }
+}
+
+if (!function_exists('wp_get_environment_type')) {
+    function wp_get_environment_type(): string
+    {
+        return 'testing';
+    }
+}
+
 if (!function_exists('wp_insert_post')) {
     function wp_insert_post(array $postData)
     {

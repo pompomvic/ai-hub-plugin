@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS site_integrations (
+    id UUID PRIMARY KEY,
+    tenant_id UUID NOT NULL,
+    site_id VARCHAR(128) NOT NULL,
+    ga_measurement_id VARCHAR(64),
+    gtm_container_id VARCHAR(64),
+    conversion_event VARCHAR(64),
+    consent_cookie_name VARCHAR(128),
+    consent_opt_out_value VARCHAR(32),
+    session_replay_enabled BOOLEAN NOT NULL DEFAULT FALSE,
+    session_replay_project_key VARCHAR(128),
+    session_replay_host VARCHAR(255),
+    session_replay_mask_selectors TEXT[],
+    feedback_enabled BOOLEAN NOT NULL DEFAULT FALSE,
+    feedback_widget_url VARCHAR(2048),
+    feedback_project_key VARCHAR(128),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    UNIQUE (tenant_id, site_id)
+);

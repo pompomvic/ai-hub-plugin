@@ -30,7 +30,7 @@ class Scheduler
         add_action(
             self::EVENT_HOOK,
             function (): void {
-                $result = $this->syncService->run();
+                $result = $this->syncService->run('cron');
 
                 if ($result instanceof WP_Error) {
                     error_log('[AI Hub] Sync failed: ' . $result->get_error_message());

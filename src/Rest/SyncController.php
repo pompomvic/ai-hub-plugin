@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace AIHub\WordPress\Rest;
 
+use AIHub\WordPress\Capabilities;
+
 use AIHub\WordPress\Sync\SyncService;
 use WP_Error;
 use WP_REST_Request;
@@ -41,7 +43,7 @@ class SyncController
                     [
                         'methods' => 'GET',
                         'callback' => [$this, 'listDashboards'],
-                        'permission_callback' => [$this, 'canSync'],
+                        'permission_callback' => [$this, 'canAccessDashboards'],
                     ]
                 );
                 register_rest_route(
@@ -50,7 +52,7 @@ class SyncController
                     [
                         'methods' => 'GET',
                         'callback' => [$this, 'getDashboard'],
-                        'permission_callback' => [$this, 'canSync'],
+                        'permission_callback' => [$this, 'canAccessDashboards'],
                     ]
                 );
             }
@@ -59,7 +61,7 @@ class SyncController
 
     public function handleSync(WP_REST_Request $request): WP_REST_Response
     {
-        $result = $this->syncService->run();
+        $result = $this->syncService->run('api');
 
         if ($result instanceof WP_Error) {
             return new WP_REST_Response(
@@ -139,6 +141,11 @@ class SyncController
 
     public function canSync(): bool
     {
-        return current_user_can('manage_options') && check_ajax_referer('wp_rest', '_wpnonce', false);
+        return current_user_can('manage_options');
+    }
+
+    public function canAccessDashboards(): bool
+    {
+        return current_user_can(Capabilities::ACCESS);
     }
 }
